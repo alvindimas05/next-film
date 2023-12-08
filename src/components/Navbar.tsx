@@ -9,11 +9,10 @@ interface NavExampleProps {
 }
 
 const Navbar: React.FC<NavExampleProps> = ({ searchMovies, setSearchKey }) => {
-  const [localSearchKey, setLocalSearchKey] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>(""); // New state for selected category
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLocalSearchKey(e.target.value);
+    setSearchKey(e.target.value);
   }
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -22,7 +21,6 @@ const Navbar: React.FC<NavExampleProps> = ({ searchMovies, setSearchKey }) => {
 
   const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearchKey(localSearchKey);
     searchMovies(e);
   }
 
@@ -35,7 +33,7 @@ const Navbar: React.FC<NavExampleProps> = ({ searchMovies, setSearchKey }) => {
 
         <form onSubmit={handleSearchSubmit}>
           <div className="space-x-4">
-          <select
+            <select
               value={selectedCategory}
               onChange={handleCategoryChange}
               className="bg-secondary text-textColor py-2 px-4 hover:bg-textColor hover:text-white"
@@ -50,7 +48,7 @@ const Navbar: React.FC<NavExampleProps> = ({ searchMovies, setSearchKey }) => {
               placeholder="Search a Movie..."
               onChange={handleSearchChange}
             />
-           
+
             <button
               type="submit"
               className="bg-secondary text-textColor py-2 px-4 hover:bg-textColor hover:text-white"

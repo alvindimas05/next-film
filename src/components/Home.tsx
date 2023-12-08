@@ -1,86 +1,11 @@
-// "use client";
-
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import MovieDetail from './MovieDetail';
-// import MovieCard from './MovieCard';
-// import Navbar from './Navbar';
-
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// interface IMovie {
-//   id: number;
-//   poster_path: string;
-//   title: string;
-// }
-
-// function Home() {
-//   const API_URL = 'https://api.themoviedb.org/3/';
-//   const [movies, setMovies] = useState<IMovie[]>([]);
-//   const [searchKey, setSearchKey] = useState<string>('');
-//   const [isSearching, setIsSearching] = useState<boolean>(false);
-
-//   const fetchMovies = async (searchKey: string) => {
-//     setIsSearching(!!searchKey);
-//     const type = searchKey ? 'search' : 'discover';
-//     const { data: { results } } = await axios.get(`${API_URL}/${type}/movie`, {
-//       params: {
-//         api_key: process.env.NEXT_PUBLIC_API_KEY,
-//         query: searchKey,
-//       },
-//     });
-
-//     setMovies(results);
-//   };
-
-//   useEffect(() => {
-//     fetchMovies('');
-//   }, []);
-
-//   const renderMovies = () =>
-//     movies.map((movie) => <MovieCard key={movie.id} movie={movie} />);
-
-//   const searchMovies = (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     fetchMovies(searchKey);
-//   };
-
-//   return (
-//     <Router>
-//       <div className="App body">
-//         <Navbar searchMovies={searchMovies} setSearchKey={setSearchKey} />
-//         <Routes>
-//           <Route
-//             path="/"
-//             element={
-//               <>
-//               <div>
-//                 <h1>Popular</h1>
-//               </div>
-//                 <div className="container-movie max-center">{renderMovies()}</div>
-//               </>
-//             }
-//           />
-
-//           <Route path="/movie/:movieId" element={<MovieDetail />} />
-//         </Routes>
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default Home;
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import MovieDetail from './MovieDetail';
 import MovieCard from './MovieCard';
 import Navbar from './Navbar';
 import Thumbnail from './Thumbnail';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 interface IMovie {
   id: number;
@@ -157,14 +82,14 @@ function Home() {
     setMovies(results);
   };
 
-  const fetchTopRatedMovies = async () => { 
-    const { data: { results } } = await axios.get(`${API_URL}/movie/top_rated`, { 
+  const fetchTopRatedMovies = async () => {
+    const { data: { results } } = await axios.get(`${API_URL}/movie/top_rated`, {
       params: {
         api_key: process.env.NEXT_PUBLIC_API_KEY,
       },
     });
 
-    setTopRatedMovies(results); 
+    setTopRatedMovies(results);
   };
 
   useEffect(() => {
@@ -181,24 +106,11 @@ function Home() {
   };
 
   return (
-    <Router>
-      <div className="App body">
-        <Navbar searchMovies={searchMovies} setSearchKey={setSearchKey} />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Row title="Top Rated" movies={topRatedMovies}/>
-                <div className="container-movie max-center">{renderMovies()}</div>
-              </>
-            }
-          />
-
-          <Route path="/movie/:movieId" element={<MovieDetail />} />
-        </Routes>
-      </div>
-    </Router>
+    <div className="App body">
+      <Navbar searchMovies={searchMovies} setSearchKey={setSearchKey} />
+      <Row title="Top Rated" movies={topRatedMovies} />
+      <div className="container-movie max-center">{renderMovies()}</div>
+    </div>
   );
 }
 

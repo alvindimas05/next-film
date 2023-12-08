@@ -1,16 +1,17 @@
+"use client";
+
 // home-admin.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route } from 'react-router-dom';
 import Navbar from '../Navbar';
 import CardAdmin from './CardAdmin';
 import DetailAdmin from './DetailAdmin';
 
 interface IMovie {
-    id: number;
-    poster_path: string;
-    title: string;
-  }
+  id: number;
+  poster_path: string;
+  title: string;
+}
 
 const HomeAdmin: React.FC = () => {
   const API_URL = 'https://api.themoviedb.org/3/';
@@ -31,12 +32,9 @@ const HomeAdmin: React.FC = () => {
     setMovies(results);
   };
 
-  useEffect(() =>{
+  useEffect(() => {
     fetchMovies('');
   }, []);
-
-  const renderMovies = () =>
-    movies.map((movie) => <CardAdmin key={movie.id} movie={movie} />);
 
   const searchMovies = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,18 +44,7 @@ const HomeAdmin: React.FC = () => {
 
   return (
     <div className="App body">
-      <Navbar searchMovies={searchMovies} setSearchKey={setSearchKey}/>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-            </>
-          }
-        />
-
-        <Route path="/movie/:movieId" element={<DetailAdmin />} />
-      </Routes>
+      <Navbar searchMovies={searchMovies} setSearchKey={setSearchKey} />
     </div>
   );
 };

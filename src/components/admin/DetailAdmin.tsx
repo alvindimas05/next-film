@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import Genres from '../Genres';
 
@@ -20,7 +19,7 @@ interface IMovie {
 
 const DetailAdmin: React.FC = () => {
     const API_URL = 'https://api.themoviedb.org/3/';
-    const { movieId } = useParams();
+    const movieId = 1;
     const [movie, setMovie] = useState<IMovie>();
 
     useEffect(() => {

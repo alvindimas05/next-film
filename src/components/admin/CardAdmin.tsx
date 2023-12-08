@@ -1,6 +1,6 @@
 // card-admin.tsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import axios from 'axios';
 
 interface IMovie {
@@ -34,7 +34,7 @@ const CardAdmin: React.FC<CardAdminProps> = ({ movie }) => {
 
   return (
     <div className="movie-card">
-      <Link to={`/movie/${movie.id}`}>
+      <Link href={`/movie/${movie.id}`}>
         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
       </Link>
       <div className="movie-info">

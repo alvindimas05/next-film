@@ -1,7 +1,7 @@
 // MovieCard.tsx
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 interface IMovie {
   id: number;
@@ -19,7 +19,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
     <div className="movie-card">
       {movie.poster_path ? (
-        <Link to={`/movie/${movie.id}`}>
+        <Link href={`/movie/${movie.id}`}>
           <img
             className="movie-cover"
             src={`${IMAGE_PATH}${movie.poster_path}`}
