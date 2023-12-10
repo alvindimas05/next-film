@@ -6,6 +6,10 @@ import MovieCard from './MovieCard';
 import Navbar from './Navbar';
 import Thumbnail from './Thumbnail';
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
+import Loading from './Loading';
+import { useRouter} from 'next/navigation';
+import { useClerk } from '@clerk/clerk-react';
+import { checkUserRole } from '@/app/utils/userUtils';
 
 interface IMovie {
   id: number;
@@ -34,9 +38,11 @@ const Row: React.FC<RowProps> = ({ title, movies }) => {
 
   return (
     <div className="space-y-0.5 md:space-y-2">
-      <h2 className="w-56 mt-6 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition duration-200 hover:text-white md:text-2xl">
+      <div className='card flex items-center justify-center'>
+      <h2 className="w-56 text-[#86FCB9] font-semibold  md:text-2xl">
         {title}
       </h2>
+      </div>
 
       <div className="group relative md:ml-2 overflow-hidden">
         <BiChevronLeft
@@ -68,6 +74,9 @@ function Home() {
   const [topRatedMovies, setTopRatedMovies] = useState<IMovie[]>([]);
   const [searchKey, setSearchKey] = useState<string>('');
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const router = useRouter();
+  const { session } = useClerk();
+
 
   const fetchMovies = async (searchKey: string) => {
     setIsSearching(!!searchKey);
@@ -105,12 +114,23 @@ function Home() {
     fetchMovies(searchKey);
   };
 
+  useEffect(() => {
+    const userRole = checkUserRole(session);
+
+    // Jika peran pengguna adalah "admin", arahkan ke halaman lain
+    if (userRole === 'admin') {
+      router.push('/access-denied'); // Ganti dengan halaman yang sesuai
+    }
+  }, [session, router]);
+
   return (
+    movies.length !== 0 && topRatedMovies.length !== 0 ?
     <div className="App body">
       <Navbar searchMovies={searchMovies} setSearchKey={setSearchKey} />
       <Row title="Top Rated" movies={topRatedMovies} />
       <div className="container-movie max-center">{renderMovies()}</div>
     </div>
+    : <Loading />
   );
 }
 

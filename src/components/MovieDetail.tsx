@@ -7,6 +7,7 @@ import { BsPlayFill } from 'react-icons/bs';
 import { IoMdClose } from 'react-icons/io';
 import ReactPlayer from 'react-player';
 import Genres from './Genres';
+import Loading from './Loading';
 
 const MovieDetail = ({ movieId }: { movieId: string }) => {
   interface IMovie {
@@ -15,7 +16,7 @@ const MovieDetail = ({ movieId }: { movieId: string }) => {
     genres: [
       {
         name: string;
-        id: string;
+        id: string; 
       }
     ];
     original_language: string;
@@ -56,7 +57,7 @@ const MovieDetail = ({ movieId }: { movieId: string }) => {
   }, [movieId]);
 
   return (
-    (movie && trailer &&
+    (movie && trailer ?
       <div className="flex justify-center items-center min-h-screen">
         <button onClick={goBack}>
           <FaArrowLeft size={30} style={{ color: '#16FF00' }} className="ml-60" />
@@ -134,6 +135,7 @@ const MovieDetail = ({ movieId }: { movieId: string }) => {
           </div>
         </div>
       </div>
+      : <Loading />
     )
   );
 }

@@ -21,7 +21,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       {movie.poster_path ? (
         <Link href={`/movie/${movie.id}`}>
           <img
-            className="movie-cover"
+            className="rounded-xl"
             src={`${IMAGE_PATH}${movie.poster_path}`}
             alt=""
           />
@@ -29,10 +29,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       ) : (
         <div className="movie-placeholder">No Image Found :(</div>
       )}
-      <h5 style={{ padding: '10px', color: '#16FF00' }}>
+      <h1 className='font-bold md:2xl:' style={{ paddingTop: '10px', color: '#86FCF4' }}>
         {movie.title}
-      </h5>
-      {/* Add other elements using movie properties */}
+      </h1>
     </div>
   );
 };

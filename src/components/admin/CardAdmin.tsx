@@ -18,7 +18,7 @@ const CardAdmin: React.FC<CardAdminProps> = ({ movie }) => {
     try {
       // Ganti dengan endpoint dan konfigurasi yang sesuai dari API Anda
       const response = await axios.post(
-        `https://api.themoviedb.org/3/list/{list_id}/add_item`, // Ganti {list_id} dengan ID daftar yang sesuai
+        `https://api.themoviedb.org/3/list/{list_id}/add_item`, 
         {
           api_key: process.env.NEXT_PUBLIC_API_KEY,
           media_id: movie.id,
@@ -37,8 +37,8 @@ const CardAdmin: React.FC<CardAdminProps> = ({ movie }) => {
       <Link href={`/movie/${movie.id}`}>
         <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
       </Link>
-      <div className="movie-info">
-        <h3>{movie.title}</h3>
+      <div>
+        <h1>{movie.title}</h1>
         <button onClick={handleAddToList}>Add to List</button>
       </div>
     </div>

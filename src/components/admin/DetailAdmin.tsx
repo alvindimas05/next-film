@@ -17,9 +17,8 @@ interface IMovie {
     videos: { results: [{ type: string; key: string }] };
 }
 
-const DetailAdmin: React.FC = () => {
+const DetailAdmin = ({ movieId }: { movieId: string }) => {
     const API_URL = 'https://api.themoviedb.org/3/';
-    const movieId = 1;
     const [movie, setMovie] = useState<IMovie>();
 
     useEffect(() => {
